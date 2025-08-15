@@ -11,27 +11,27 @@ License: MIT
 
 from .client import Client
 from .exceptions import (
+    ClientException,
     DomainException,
-    ValidationException,
-    UnauthorizedException,
     ForbiddenException,
     NotFoundException,
-    ClientException,
     PhoneException,
     ServerException,
+    UnauthorizedException,
     UnknownErrorException,
+    ValidationException,
 )
 
 __version__ = "0.1.0"
 __all__ = [
     "Client",
+    "ClientException",
     "DomainException",
-    "ValidationException", 
-    "UnauthorizedException",
     "ForbiddenException",
     "NotFoundException",
-    "ClientException",
     "PhoneException",
     "ServerException",
+    "UnauthorizedException",
     "UnknownErrorException",
+    "ValidationException",
 ]

@@ -1,3 +1,4 @@
+README.md
 pyproject.toml
 rurus_nalog/__init__.py
 rurus_nalog/_http.py
@@ -5,14 +6,22 @@ rurus_nalog/auth.py
 rurus_nalog/client.py
 rurus_nalog/exceptions.py
 rurus_nalog/income.py
+rurus_nalog/payment_type.py
 rurus_nalog/receipt.py
+rurus_nalog/tax.py
+rurus_nalog/user.py
 rurus_nalog.egg-info/PKG-INFO
 rurus_nalog.egg-info/SOURCES.txt
 rurus_nalog.egg-info/dependency_links.txt
 rurus_nalog.egg-info/requires.txt
 rurus_nalog.egg-info/top_level.txt
 rurus_nalog/dto/__init__.py
+rurus_nalog/dto/device.py
 rurus_nalog/dto/income.py
+rurus_nalog/dto/invoice.py
+rurus_nalog/dto/payment_type.py
+rurus_nalog/dto/tax.py
+rurus_nalog/dto/user.py
 tests/test_auth_async.py
 tests/test_income_async.py
 tests/test_receipt_async.py

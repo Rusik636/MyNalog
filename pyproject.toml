@@ -4,28 +4,38 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "rurus-nalog"
-version = "0.1.0"
+version = "1.0.0"
 authors = [
-    {name = "LibMyNalogPy Migration", email = "migration@example.com"},
+    {name = "RuRus Nalog Contributors", email = "contributors@rurus-nalog.com"},
 ]
-description = "Asynchronous Python client for Russian self-employed tax service (Moy Nalog)"
+description = "Asynchronous Python client for Russian self-employed tax service API (Moy Nalog / lknpd.nalog.ru)"
 readme = "README.md"
 license = {text = "MIT"}
 requires-python = ">=3.11"
+keywords = [
+    "nalog", "tax", "self-employed", "api", "async", "russia", "moy-nalog", 
+    "freelancer", "invoice", "receipt", "lknpd", "самозанятый"
+]
 classifiers = [
-    "Development Status :: 3 - Alpha",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
     "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
     "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Office/Business :: Financial :: Accounting",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Typing :: Typed",
+    "Framework :: AsyncIO",
+    "Framework :: Pydantic",
 ]
 dependencies = [
     "httpx>=0.25.0",
-    "pydantic>=2.0.0",
+    "pydantic>=2.0.0,<3.0.0",
     "python-dotenv>=1.0.0",
 ]
 
@@ -33,17 +43,24 @@ dependencies = [
 dev = [
     "pytest>=7.0.0",
     "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
     "respx>=0.20.0",
     "ruff>=0.1.0",
     "black>=23.0.0",
     "mypy>=1.0.0",
     "coverage>=7.0.0",
+    "bandit[toml]>=1.7.0",
+    "build>=1.0.0",
+    "twine>=4.0.0",
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/shoman4eg/moy-nalog"
-"Bug Reports" = "https://github.com/shoman4eg/moy-nalog/issues"
-"Source" = "https://github.com/shoman4eg/moy-nalog"
+"Homepage" = "https://github.com/your-org/rurus-nalog"
+"Documentation" = "https://github.com/your-org/rurus-nalog#readme"
+"Repository" = "https://github.com/your-org/rurus-nalog"
+"Bug Reports" = "https://github.com/your-org/rurus-nalog/issues"
+"Changelog" = "https://github.com/your-org/rurus-nalog/blob/main/CHANGELOG.md"
+"Original PHP Library" = "https://github.com/shoman4eg/moy-nalog"
 
 [tool.setuptools.packages.find]
 include = ["rurus_nalog*"]
@@ -90,3 +107,10 @@ exclude_lines = [
     "if 0:",
     "if __name__ == .__main__.:",
 ]
+
+[tool.bandit]
+exclude_dirs = ["tests", "examples"]
+skips = ["B101"]  # Skip assert_used test
+
+[tool.bandit.assert_used]
+skips = ["*_test.py", "*test_*.py"]

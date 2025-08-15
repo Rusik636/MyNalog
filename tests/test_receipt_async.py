@@ -21,9 +21,9 @@ def authenticated_client():
         "profile": {
             "inn": "123456789012",
             "displayName": "Test User",
-        }
+        },
     }
-    
+
     client = Client()
     return client, json.dumps(sample_token)
 
@@ -62,12 +62,12 @@ class TestReceiptAPI:
         """Test receipt print URL composition."""
         client, token_json = authenticated_client
         await client.authenticate(token_json)
-        
+
         receipt_api = client.receipt()
-        
+
         # Test URL composition
         url = receipt_api.print_url("test-receipt-uuid-123")
-        
+
         expected_url = "https://lknpd.nalog.ru/api/receipt/123456789012/test-receipt-uuid-123/print"
         assert url == expected_url
 
@@ -76,9 +76,9 @@ class TestReceiptAPI:
         """Test validation error for empty receipt UUID in print_url."""
         client, token_json = authenticated_client
         await client.authenticate(token_json)
-        
+
         receipt_api = client.receipt()
-        
+
         with pytest.raises(ValueError, match="Receipt UUID cannot be empty"):
             receipt_api.print_url("")
 
@@ -87,11 +87,11 @@ class TestReceiptAPI:
         """Test that print_url trims whitespace from UUID."""
         client, token_json = authenticated_client
         await client.authenticate(token_json)
-        
+
         receipt_api = client.receipt()
-        
+
         url = receipt_api.print_url("  test-receipt-uuid-123  ")
-        
+
         expected_url = "https://lknpd.nalog.ru/api/receipt/123456789012/test-receipt-uuid-123/print"
         assert url == expected_url
 
@@ -100,15 +100,15 @@ class TestReceiptAPI:
         """Test successful receipt JSON retrieval."""
         client, token_json = authenticated_client
         await client.authenticate(token_json)
-        
+
         with respx.mock(base_url="https://lknpd.nalog.ru/api/v1") as respx_mock:
             respx_mock.get("/receipt/123456789012/test-receipt-uuid-123/json").mock(
                 return_value=httpx.Response(200, json=receipt_json_response)
             )
-            
+
             receipt_api = client.receipt()
             result = await receipt_api.json("test-receipt-uuid-123")
-            
+
             assert result["id"] == "test-receipt-uuid-123"
             assert result["totalAmount"] == 100.0
             assert len(result["services"]) == 1
@@ -118,42 +118,50 @@ class TestReceiptAPI:
         """Test validation error for empty receipt UUID in json method."""
         client, token_json = authenticated_client
         await client.authenticate(token_json)
-        
+
         receipt_api = client.receipt()
-        
+
         with pytest.raises(ValueError, match="Receipt UUID cannot be empty"):
             await receipt_api.json("")
 
     @pytest.mark.asyncio
-    async def test_json_whitespace_trimming(self, authenticated_client, receipt_json_response):
+    async def test_json_whitespace_trimming(
+        self, authenticated_client, receipt_json_response
+    ):
         """Test that json method trims whitespace from UUID."""
         client, token_json = authenticated_client
         await client.authenticate(token_json)
-        
+
         with respx.mock(base_url="https://lknpd.nalog.ru/api/v1") as respx_mock:
             # Mock should expect trimmed UUID
             respx_mock.get("/receipt/123456789012/test-receipt-uuid-123/json").mock(
                 return_value=httpx.Response(200, json=receipt_json_response)
             )
-            
+
             receipt_api = client.receipt()
             result = await receipt_api.json("  test-receipt-uuid-123  ")
-            
+
             assert result["id"] == "test-receipt-uuid-123"
 
     @pytest.mark.asyncio
-    async def test_json_request_path_composition(self, authenticated_client, receipt_json_response):
+    async def test_json_request_path_composition(
+        self, authenticated_client, receipt_json_response
+    ):
         """Test that json method composes correct request path."""
         client, token_json = authenticated_client
         await client.authenticate(token_json)
-        
+
         with respx.mock(base_url="https://lknpd.nalog.ru/api/v1") as respx_mock:
-            request_mock = respx_mock.get("/receipt/123456789012/test-receipt-uuid-123/json")
-            request_mock.mock(return_value=httpx.Response(200, json=receipt_json_response))
-            
+            request_mock = respx_mock.get(
+                "/receipt/123456789012/test-receipt-uuid-123/json"
+            )
+            request_mock.mock(
+                return_value=httpx.Response(200, json=receipt_json_response)
+            )
+
             receipt_api = client.receipt()
             await receipt_api.json("test-receipt-uuid-123")
-            
+
             # Verify the exact path was called
             assert request_mock.called
             assert len(request_mock.calls) == 1
@@ -162,7 +170,7 @@ class TestReceiptAPI:
     async def test_receipt_api_requires_authenticated_user(self):
         """Test that Receipt API requires authenticated user with profile."""
         client = Client()
-        
+
         # No authentication - should fail
         with pytest.raises(ValueError, match="User profile not available"):
             client.receipt()
@@ -176,14 +184,14 @@ class TestReceiptAPI:
             "profile": {
                 "inn": "987654321098",  # Different INN
                 "displayName": "Custom User",
-            }
+            },
         }
-        
+
         client = Client()
         await client.authenticate(json.dumps(custom_token))
-        
+
         receipt_api = client.receipt()
-        
+
         # Test URL uses the profile INN
         url = receipt_api.print_url("test-uuid")
         expected_url = "https://lknpd.nalog.ru/api/receipt/987654321098/test-uuid/print"
@@ -197,16 +205,18 @@ class TestReceiptAPI:
             "profile": {
                 "inn": "123456789012",
                 "displayName": "Test User",
-            }
+            },
         }
-        
+
         # Create client with custom base URL
         client = Client(base_url="https://custom.api.example.com/api")
         await client.authenticate(json.dumps(custom_token))
-        
+
         receipt_api = client.receipt()
-        
+
         # Test URL uses custom base URL
         url = receipt_api.print_url("test-uuid")
-        expected_url = "https://custom.api.example.com/api/receipt/123456789012/test-uuid/print"
+        expected_url = (
+            "https://custom.api.example.com/api/receipt/123456789012/test-uuid/print"
+        )
         assert url == expected_url

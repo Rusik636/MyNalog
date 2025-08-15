@@ -4,9 +4,8 @@ Based on PHP library's AuthenticationPlugin and HTTP architecture.
 """
 
 import asyncio
-import json
 from abc import ABC, abstractmethod
-from typing import Any, Dict, Optional
+from typing import Any
 
 import httpx
 
@@ -17,20 +16,18 @@ class AuthProvider(ABC):
     """Abstract interface for authentication provider."""
 
     @abstractmethod
-    async def get_token(self) -> Optional[Dict[str, Any]]:
+    async def get_token(self) -> dict[str, Any] | None:
         """Get current access token data."""
-        pass
 
     @abstractmethod
-    async def refresh(self, refresh_token: str) -> Optional[Dict[str, Any]]:
+    async def refresh(self, refresh_token: str) -> dict[str, Any] | None:
         """Refresh access token using refresh token."""
-        pass
 
 
 class AsyncHTTPClient:
     """
     Async HTTP client with automatic token refresh on 401 responses.
-    
+
     Based on PHP's AuthenticationPlugin behavior:
     - Adds Bearer authorization header
     - On 401 response, attempts token refresh once
@@ -41,7 +38,7 @@ class AsyncHTTPClient:
         self,
         base_url: str,
         auth_provider: AuthProvider,
-        default_headers: Optional[Dict[str, str]] = None,
+        default_headers: dict[str, str] | None = None,
         timeout: float = 10.0,
     ):
         self.base_url = base_url
@@ -51,22 +48,20 @@ class AsyncHTTPClient:
         self._refresh_lock = asyncio.Lock()
         self.max_retries = 2  # Same as PHP AuthenticationPlugin::RETRY_LIMIT
 
-    async def _get_auth_headers(self) -> Dict[str, str]:
+    async def _get_auth_headers(self) -> dict[str, str]:
         """Get authorization headers from current token."""
         token_data = await self.auth_provider.get_token()
         if not token_data or "token" not in token_data:
             return {}
-        
+
         return {"Authorization": f"Bearer {token_data['token']}"}
 
     async def _handle_401_response(
-        self, 
-        client: httpx.AsyncClient, 
-        request: httpx.Request
-    ) -> Optional[httpx.Response]:
+        self, client: httpx.AsyncClient, request: httpx.Request
+    ) -> httpx.Response | None:
         """
         Handle 401 response by refreshing token and retrying request.
-        
+
         Uses asyncio.Lock to prevent concurrent refresh attempts,
         similar to PHP's retry storage mechanism.
         """
@@ -76,7 +71,9 @@ class AsyncHTTPClient:
                 return None
 
             # Attempt token refresh
-            new_token_data = await self.auth_provider.refresh(token_data["refreshToken"])
+            new_token_data = await self.auth_provider.refresh(
+                token_data["refreshToken"]
+            )
             if not new_token_data or "token" not in new_token_data:
                 return None
 
@@ -91,23 +88,23 @@ class AsyncHTTPClient:
         self,
         method: str,
         path: str,
-        headers: Optional[Dict[str, str]] = None,
-        json_data: Optional[Dict[str, Any]] = None,
+        headers: dict[str, str] | None = None,
+        json_data: dict[str, Any] | None = None,
         **kwargs,
     ) -> httpx.Response:
         """
         Make HTTP request with automatic auth and 401 retry logic.
-        
+
         Args:
             method: HTTP method (GET, POST, etc.)
             path: API path (e.g., "/income")
             headers: Additional headers
             json_data: JSON request body
             **kwargs: Additional httpx.AsyncClient.request arguments
-            
+
         Returns:
             httpx.Response object
-            
+
         Raises:
             Domain exceptions via raise_for_status()
         """
@@ -126,14 +123,14 @@ class AsyncHTTPClient:
             "timeout": self.timeout,
             **kwargs,
         }
-        
+
         if json_data is not None:
             request_kwargs["json"] = json_data
 
         async with httpx.AsyncClient() as client:
             # Initial request
             response = await client.request(**request_kwargs)
-            
+
             # Handle 401 with token refresh (max 1 retry)
             if response.status_code == 401:
                 # Build request object for retry
@@ -144,13 +141,13 @@ class AsyncHTTPClient:
 
             # Check for domain exceptions
             raise_for_status(response)
-            
+
             return response
 
     async def get(
-        self, 
-        path: str, 
-        headers: Optional[Dict[str, str]] = None,
+        self,
+        path: str,
+        headers: dict[str, str] | None = None,
         **kwargs,
     ) -> httpx.Response:
         """GET request."""
@@ -159,27 +156,31 @@ class AsyncHTTPClient:
     async def post(
         self,
         path: str,
-        json_data: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
+        json_data: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
         **kwargs,
     ) -> httpx.Response:
         """POST request with JSON data."""
-        return await self.request("POST", path, headers=headers, json_data=json_data, **kwargs)
+        return await self.request(
+            "POST", path, headers=headers, json_data=json_data, **kwargs
+        )
 
     async def put(
         self,
         path: str,
-        json_data: Optional[Dict[str, Any]] = None,
-        headers: Optional[Dict[str, str]] = None,
+        json_data: dict[str, Any] | None = None,
+        headers: dict[str, str] | None = None,
         **kwargs,
     ) -> httpx.Response:
         """PUT request with JSON data."""
-        return await self.request("PUT", path, headers=headers, json_data=json_data, **kwargs)
+        return await self.request(
+            "PUT", path, headers=headers, json_data=json_data, **kwargs
+        )
 
     async def delete(
         self,
         path: str,
-        headers: Optional[Dict[str, str]] = None,
+        headers: dict[str, str] | None = None,
         **kwargs,
     ) -> httpx.Response:
         """DELETE request."""
