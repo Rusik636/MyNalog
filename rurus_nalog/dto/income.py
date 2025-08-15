@@ -145,7 +145,9 @@ class IncomeClient(BaseModel):
 
     @field_validator("display_name")
     @classmethod
-    def validate_display_name_for_legal_entity(cls, v: str | None, info: Any) -> str | None:
+    def validate_display_name_for_legal_entity(
+        cls, v: str | None, info: Any
+    ) -> str | None:
         """Validate display name is provided for legal entities."""
         # Note: This validation is applied in the API layer in PHP,
         # but we can do basic validation here
