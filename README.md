@@ -5,9 +5,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Async](https://img.shields.io/badge/async-supported-green.svg)](https://docs.python.org/3/library/asyncio.html)
-[![Coverage](https://img.shields.io/badge/coverage-88%25-brightgreen.svg)](https://github.com/your-org/nalogo)
+[![Coverage](https://img.shields.io/badge/coverage-88%25-brightgreen.svg)](https://github.com/Rusik636/nalogo)
 
-**Production-ready асинхронная Python библиотека для работы с API сервиса самозанятых "Мой налог" (lknpd.nalog.ru)**
+**Асинхронная Python библиотека для работы с API сервиса самозанятых "Мой налог" (lknpd.nalog.ru)**
 
 Полный порт PHP библиотеки [shoman4eg/moy-nalog](https://github.com/shoman4eg/moy-nalog) с современной асинхронной архитектурой, полной типизацией и 88% покрытием тестами.
 
@@ -52,7 +52,7 @@ pip install nalogo
 ### Для разработки
 
 ```bash
-git clone https://github.com/your-org/nalogo.git
+git clone https://github.com/Rusik636/nalogo.git
 cd nalogo
 pip install -e ".[dev]"
 ```
@@ -586,7 +586,7 @@ async def bulk_receipts():
 
 ```bash
 # Клонирование
-git clone https://github.com/your-org/nalogo.git
+git clone https://github.com/Rusik636/nalogo.git
 cd nalogo
 
 # Создание виртуального окружения
@@ -641,9 +641,9 @@ MIT License - подробности в файле [LICENSE](LICENSE).
 
 ## 📞 Поддержка
 
-- 📋 **Issues**: [GitHub Issues](https://github.com/your-org/nalogo/issues)
+- 📋 **Issues**: [GitHub Issues](https://github.com/Rusik636/nalogo/issues)
 - 📖 **Документация**: [README.md](README.md)
-- 💬 **Обсуждения**: [GitHub Discussions](https://github.com/your-org/nalogo/discussions)
+- 💬 **Обсуждения**: [GitHub Discussions](https://github.com/Rusik636/nalogo/discussions)
 - 📧 **Email**: contributors@nalogo.com
 
 ---
