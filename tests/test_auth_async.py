@@ -9,9 +9,9 @@ import httpx
 import pytest
 import respx
 
-from rurus_nalog.auth import AuthProviderImpl
-from rurus_nalog.client import Client
-from rurus_nalog.exceptions import UnauthorizedException
+from nalogo.auth import AuthProviderImpl
+from nalogo.client import Client
+from nalogo.exceptions import UnauthorizedException
 
 
 @pytest.fixture

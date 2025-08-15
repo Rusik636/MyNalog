@@ -9,7 +9,7 @@ import httpx
 import pytest
 import respx
 
-from rurus_nalog.client import Client
+from nalogo.client import Client
 
 
 @pytest.fixture

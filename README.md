@@ -1,11 +1,11 @@
-# 🏛️ RuRus Nalog
+# 🏛️ NaloGO
 
-[![PyPI version](https://badge.fury.io/py/rurus-nalog.svg)](https://badge.fury.io/py/rurus-nalog)
+[![PyPI version](https://badge.fury.io/py/nalogo.svg)](https://badge.fury.io/py/nalogo)
 [![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Async](https://img.shields.io/badge/async-supported-green.svg)](https://docs.python.org/3/library/asyncio.html)
-[![Coverage](https://img.shields.io/badge/coverage-88%25-brightgreen.svg)](https://github.com/your-org/rurus-nalog)
+[![Coverage](https://img.shields.io/badge/coverage-88%25-brightgreen.svg)](https://github.com/your-org/nalogo)
 
 **Production-ready асинхронная Python библиотека для работы с API сервиса самозанятых "Мой налог" (lknpd.nalog.ru)**
 
@@ -46,14 +46,14 @@
 ### Из PyPI (рекомендуется)
 
 ```bash
-pip install rurus-nalog
+pip install nalogo
 ```
 
 ### Для разработки
 
 ```bash
-git clone https://github.com/your-org/rurus-nalog.git
-cd rurus-nalog
+git clone https://github.com/your-org/nalogo.git
+cd nalogo
 pip install -e ".[dev]"
 ```
 
@@ -63,7 +63,7 @@ pip install -e ".[dev]"
 
 ```python
 import asyncio
-from rurus_nalog import Client
+from nalogo import Client
 
 # Простая инициализация
 client = Client()
@@ -146,7 +146,7 @@ async def create_simple_receipt():
 #### Чек с несколькими позициями
 
 ```python
-from rurus_nalog.dto.income import IncomeServiceItem
+from nalogo.dto.income import IncomeServiceItem
 from decimal import Decimal
 
 async def create_multi_item_receipt():
@@ -179,7 +179,7 @@ async def create_multi_item_receipt():
 #### Чек для юридического лица
 
 ```python
-from rurus_nalog.dto.income import IncomeClient, IncomeType
+from nalogo.dto.income import IncomeClient, IncomeType
 
 async def create_legal_entity_receipt():
     client = await auth_with_inn()
@@ -207,7 +207,7 @@ async def create_legal_entity_receipt():
 ### ❌ Отмена чеков
 
 ```python
-from rurus_nalog.dto.income import CancelCommentType
+from nalogo.dto.income import CancelCommentType
 
 async def cancel_receipt():
     client = await auth_with_inn()
@@ -325,7 +325,7 @@ import logging
 
 # Настройка логирования для отладки
 logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger("rurus_nalog")
+logger = logging.getLogger("nalogo")
 
 # Библиотека автоматически маскирует чувствительные данные:
 # - Токены доступа
@@ -337,7 +337,7 @@ logger = logging.getLogger("rurus_nalog")
 ### Обработка ошибок
 
 ```python
-from rurus_nalog.exceptions import (
+from nalogo.exceptions import (
     UnauthorizedException,
     ValidationException,
     PhoneException,
@@ -398,8 +398,8 @@ client = Client(
 ### Кастомизация HTTP клиента
 
 ```python
-from rurus_nalog import Client
-from rurus_nalog._http import AsyncHTTPClient
+from nalogo import Client
+from nalogo._http import AsyncHTTPClient
 
 # Клиент с кастомными настройками
 class CustomHTTPClient(AsyncHTTPClient):
@@ -428,7 +428,7 @@ pip install -e ".[dev]"
 pytest
 
 # С покрытием
-pytest --cov=rurus_nalog --cov-report=html
+pytest --cov=nalogo --cov-report=html
 
 # Конкретные тесты
 pytest tests/test_auth_async.py -v
@@ -521,7 +521,7 @@ async def migrate_from_php():
     
     # 3. Замените ассоциативные массивы на объекты DTO
     # PHP: $client = ['contactPhone' => $phone, ...];
-    from rurus_nalog.dto.income import IncomeClient
+    from nalogo.dto.income import IncomeClient
     client_data = IncomeClient(contact_phone=phone, ...)
     
     # 4. Используйте Decimal для денежных операций
@@ -549,7 +549,7 @@ async def migrate_from_php():
 
 ```python
 import asyncio
-from rurus_nalog import Client
+from nalogo import Client
 
 async def bulk_receipts():
     client = await auth_with_inn()
@@ -586,8 +586,8 @@ async def bulk_receipts():
 
 ```bash
 # Клонирование
-git clone https://github.com/your-org/rurus-nalog.git
-cd rurus-nalog
+git clone https://github.com/your-org/nalogo.git
+cd nalogo
 
 # Создание виртуального окружения
 python -m venv .venv
@@ -612,13 +612,13 @@ ruff check .
 black .
 
 # Типизация
-mypy rurus_nalog/
+mypy nalogo/
 
 # Безопасность
-bandit -r rurus_nalog/
+bandit -r nalogo/
 
 # Полная проверка (как в CI)
-pytest --cov=rurus_nalog --cov-fail-under=80
+pytest --cov=nalogo --cov-fail-under=80
 ```
 
 ### Создание PR
@@ -641,10 +641,10 @@ MIT License - подробности в файле [LICENSE](LICENSE).
 
 ## 📞 Поддержка
 
-- 📋 **Issues**: [GitHub Issues](https://github.com/your-org/rurus-nalog/issues)
+- 📋 **Issues**: [GitHub Issues](https://github.com/your-org/nalogo/issues)
 - 📖 **Документация**: [README.md](README.md)
-- 💬 **Обсуждения**: [GitHub Discussions](https://github.com/your-org/rurus-nalog/discussions)
-- 📧 **Email**: contributors@rurus-nalog.com
+- 💬 **Обсуждения**: [GitHub Discussions](https://github.com/your-org/nalogo/discussions)
+- 📧 **Email**: contributors@nalogo.com
 
 ---
 

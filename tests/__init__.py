@@ -1,1 +1,1 @@
-"""Tests for rurus_nalog package."""
+"""Tests for nalogo package."""

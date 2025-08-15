@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Демонстрация работы rurus_nalog - асинхронной Python библиотеки для API "Мой налог".
+Демонстрация работы nalogo - асинхронной Python библиотеки для API "Мой налог".
 
 Этот скрипт показывает основные возможности библиотеки:
 - Аутентификация
@@ -13,13 +13,13 @@ import asyncio
 import json
 from decimal import Decimal
 
-from rurus_nalog import Client
-from rurus_nalog.dto.income import (
+from nalogo import Client
+from nalogo.dto.income import (
     IncomeClient,
     IncomeServiceItem,
     IncomeType,
 )
-from rurus_nalog.exceptions import ValidationException
+from nalogo.exceptions import ValidationException
 
 
 async def demo_authentication():

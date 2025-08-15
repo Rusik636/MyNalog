@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-End-to-end async example for rurus_nalog library.
+End-to-end async example for nalogo library.
 
 This example demonstrates a complete workflow:
 1. Phone challenge authentication
@@ -24,9 +24,9 @@ logging.basicConfig(
 
 import contextlib
 
-from rurus_nalog import Client
-from rurus_nalog.dto.income import IncomeClient, IncomeServiceItem, IncomeType
-from rurus_nalog.exceptions import (
+from nalogo import Client
+from nalogo.dto.income import IncomeClient, IncomeServiceItem, IncomeType
+from nalogo.exceptions import (
     DomainException,
     PhoneException,
     UnauthorizedException,
@@ -43,14 +43,14 @@ async def phone_challenge_flow_example():
         client = Client()
 
         # Step 1: Start phone challenge
-        phone = "79001234567"  # Example phone number
+        phone = "79528476153"  # Example phone number
 
         # In real usage, this would send an SMS
         challenge_response = await client.create_phone_challenge(phone)
 
         # Step 2: Simulate SMS code verification
         # In real usage, get this from user input
-        sms_code = "123456"  # Example SMS code
+        sms_code = str(input("Введите SMS код: "))  # Example SMS code
 
         token_json = await client.create_new_access_token_by_phone(
             phone, challenge_response["challengeToken"], sms_code

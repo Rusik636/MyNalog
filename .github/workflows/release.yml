@@ -33,7 +33,7 @@ jobs:
     - name: Run full test suite
       run: |
         echo "🧪 Running full test suite before release..."
-        pytest tests/ -v --cov=rurus_nalog --cov-report=term-missing
+                  pytest tests/ -v --cov=nalogo --cov-report=term-missing
     
     - name: Lint and format check
       run: |
@@ -44,7 +44,7 @@ jobs:
     - name: Type check
       run: |
         echo "🔎 Running type checks..."
-        mypy rurus_nalog/
+        mypy nalogo/
 
   build:
     name: Build Package
@@ -158,7 +158,7 @@ jobs:
           
           ## Installation
           ```bash
-          pip install rurus-nalog
+          pip install nalogo
           ```
           
           ## Documentation

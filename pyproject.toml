@@ -3,10 +3,10 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "rurus-nalog"
+name = "nalogo"
 version = "1.0.0"
 authors = [
-    {name = "RuRus Nalog Contributors", email = "contributors@rurus-nalog.com"},
+    {name = "NaloGO Contributors", email = "contributors@nalogo.com"},
 ]
 description = "Asynchronous Python client for Russian self-employed tax service API (Moy Nalog / lknpd.nalog.ru)"
 readme = "README.md"
@@ -55,15 +55,15 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/your-org/rurus-nalog"
-"Documentation" = "https://github.com/your-org/rurus-nalog#readme"
-"Repository" = "https://github.com/your-org/rurus-nalog"
-"Bug Reports" = "https://github.com/your-org/rurus-nalog/issues"
-"Changelog" = "https://github.com/your-org/rurus-nalog/blob/main/CHANGELOG.md"
+"Homepage" = "https://github.com/your-org/nalogo"
+"Documentation" = "https://github.com/your-org/nalogo#readme"
+"Repository" = "https://github.com/your-org/nalogo"
+"Bug Reports" = "https://github.com/your-org/nalogo/issues"
+"Changelog" = "https://github.com/your-org/nalogo/blob/main/CHANGELOG.md"
 "Original PHP Library" = "https://github.com/shoman4eg/moy-nalog"
 
 [tool.setuptools.packages.find]
-include = ["rurus_nalog*"]
+include = ["nalogo*"]
 
 [tool.black]
 line-length = 88
@@ -93,8 +93,8 @@ testpaths = ["tests"]
 asyncio_mode = "auto"
 
 [tool.coverage.run]
-source = ["rurus_nalog"]
-omit = ["tests/*", "rurus_nalog/__init__.py"]
+source = ["nalogo"]
+omit = ["tests/*", "nalogo/__init__.py"]
 
 [tool.coverage.report]
 exclude_lines = [

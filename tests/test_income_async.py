@@ -11,8 +11,8 @@ import pytest
 import respx
 from pydantic import ValidationError
 
-from rurus_nalog.client import Client
-from rurus_nalog.dto.income import (
+from nalogo.client import Client
+from nalogo.dto.income import (
     CancelCommentType,
     IncomeClient,
     IncomeServiceItem,

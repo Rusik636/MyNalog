@@ -74,7 +74,7 @@ jobs:
     - name: Type check with mypy
       run: |
         echo "🔎 Running mypy type checker..."
-        mypy rurus_nalog/
+        mypy nalogo/
 
   test:
     name: Test Suite
@@ -109,7 +109,7 @@ jobs:
     - name: Run tests with coverage
       run: |
         echo "🧪 Running test suite with coverage..."
-        pytest tests/ -v --cov=rurus_nalog --cov-report=xml --cov-report=term-missing --cov-fail-under=80
+                  pytest tests/ -v --cov=nalogo --cov-report=xml --cov-report=term-missing --cov-fail-under=80
     
     - name: Upload coverage to Codecov
       if: matrix.python-version == '3.11'
@@ -140,11 +140,11 @@ jobs:
     - name: Security check with bandit
       run: |
         echo "🔒 Running security scan with bandit..."
-        bandit -r rurus_nalog/ -ll
+        bandit -r nalogo/ -ll
     
     - name: Generate bandit report
       run: |
-        bandit -r rurus_nalog/ -f json -o bandit-report.json || true
+        bandit -r nalogo/ -f json -o bandit-report.json || true
     
     - name: Upload security report
       uses: actions/upload-artifact@v4
