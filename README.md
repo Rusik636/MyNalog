@@ -644,8 +644,8 @@ MIT License - подробности в файле [LICENSE](LICENSE).
 - 📋 **Issues**: [GitHub Issues](https://github.com/Rusik636/nalogo/issues)
 - 📖 **Документация**: [README.md](README.md)
 - 💬 **Обсуждения**: [GitHub Discussions](https://github.com/Rusik636/nalogo/discussions)
-- 📧 **Email**: contributors@nalogo.com
+- 📧 **Email**: ruslan.prokshin@mail.ru
 
 ---
 
-**Сделано с ❤️ для Python-сообщества самозанятых**
+**Сделано с ❤️ для Python-сообщества**
