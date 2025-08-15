@@ -43,7 +43,7 @@ async def phone_challenge_flow_example():
         client = Client()
 
         # Step 1: Start phone challenge
-        phone = "79528476153"  # Example phone number
+        phone = "79999999999"  # Example phone number
 
         # In real usage, this would send an SMS
         challenge_response = await client.create_phone_challenge(phone)
