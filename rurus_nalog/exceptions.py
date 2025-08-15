@@ -57,11 +57,9 @@ class DomainException(Exception):
         sensitive_keys = ["authorization", "x-api-key", "cookie", "set-cookie"]
 
         for key in sensitive_keys:
-            if key.lower() in [h.lower() for h in safe_headers.keys()]:
+            if key.lower() in [h.lower() for h in safe_headers]:
                 # Find the actual key (case-insensitive)
-                actual_key = next(
-                    k for k in safe_headers.keys() if k.lower() == key.lower()
-                )
+                actual_key = next(k for k in safe_headers if k.lower() == key.lower())
                 safe_headers[actual_key] = "***"
 
         return safe_headers

@@ -35,7 +35,7 @@ class PaymentType(BaseModel):
         """Check if this payment type is marked as favorite."""
         return self.favorite
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Custom serialization to match API format."""
         return {
             "id": self.id,
@@ -59,14 +59,14 @@ class PaymentTypeCollection(BaseModel):
 
     payment_types: list[PaymentType] = Field(default_factory=list)
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         """Make collection iterable."""
         return iter(self.payment_types)
 
-    def __len__(self):
+    def __len__(self) -> int:
         """Get collection length."""
         return len(self.payment_types)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> PaymentType:
         """Get item by index."""
         return self.payment_types[index]

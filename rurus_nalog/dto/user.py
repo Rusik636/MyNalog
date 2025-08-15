@@ -61,7 +61,7 @@ class UserType(BaseModel):
         mode="before",
     )
     @classmethod
-    def parse_datetime(cls, v):
+    def parse_datetime(cls, v: Any) -> datetime | None:
         """Parse datetime strings from API."""
         if v is None or v == "":
             return None
@@ -70,7 +70,7 @@ class UserType(BaseModel):
                 return datetime.fromisoformat(v.replace("Z", "+00:00"))
             except ValueError:
                 return None
-        return v
+        return v  # type: ignore[no-any-return]
 
     def is_avatar_exists(self) -> bool:
         """Check if user has avatar."""
@@ -84,10 +84,10 @@ class UserType(BaseModel):
         """Check if user is in restricted mode."""
         return self.restricted_mode
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Custom serialization to match API format."""
 
-        def serialize_datetime(dt):
+        def serialize_datetime(dt: datetime | None) -> str | None:
             if dt is None:
                 return None
             return dt.isoformat()

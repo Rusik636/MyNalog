@@ -123,7 +123,7 @@ class IncomeAPI:
 
         # Make API request
         response = await self.http.post("/income", json_data=request.model_dump())
-        return response.json()
+        return response.json()  # type: ignore[no-any-return]
 
     async def cancel(
         self,
@@ -192,4 +192,4 @@ class IncomeAPI:
 
         # Make API request
         response = await self.http.post("/cancel", json_data=request.model_dump())
-        return response.json()
+        return response.json()  # type: ignore[no-any-return]

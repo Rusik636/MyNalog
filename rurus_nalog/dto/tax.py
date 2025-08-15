@@ -18,7 +18,7 @@ class Tax(BaseModel):
     # Since we don't have the exact PHP model structure, we'll use flexible Dict
     data: dict[str, Any] = Field(default_factory=dict, description="Tax data")
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Return the raw data dictionary."""
         return self.data
 
@@ -32,7 +32,7 @@ class History(BaseModel):
     # History fields would be defined based on API response
     data: dict[str, Any] = Field(default_factory=dict, description="History entry data")
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Return the raw data dictionary."""
         return self.data
 
@@ -45,15 +45,15 @@ class HistoryRecords(BaseModel):
 
     records: list[History] = Field(default_factory=list, description="History records")
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         """Make collection iterable."""
         return iter(self.records)
 
-    def __len__(self):
+    def __len__(self) -> int:
         """Get collection length."""
         return len(self.records)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> History:
         """Get item by index."""
         return self.records[index]
 
@@ -67,7 +67,7 @@ class Payment(BaseModel):
     # Payment fields would be defined based on API response
     data: dict[str, Any] = Field(default_factory=dict, description="Payment data")
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Return the raw data dictionary."""
         return self.data
 
@@ -80,14 +80,14 @@ class PaymentRecords(BaseModel):
 
     records: list[Payment] = Field(default_factory=list, description="Payment records")
 
-    def __iter__(self):
+    def __iter__(self) -> Any:
         """Make collection iterable."""
         return iter(self.records)
 
-    def __len__(self):
+    def __len__(self) -> int:
         """Get collection length."""
         return len(self.records)
 
-    def __getitem__(self, index):
+    def __getitem__(self, index: int) -> Payment:
         """Get item by index."""
         return self.records[index]

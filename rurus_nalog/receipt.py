@@ -70,4 +70,4 @@ class ReceiptAPI:
         path = f"/receipt/{self.user_inn}/{receipt_uuid.strip()}/json"
         response = await self.http.get(path)
 
-        return response.json()
+        return response.json()  # type: ignore[no-any-return]

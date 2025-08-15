@@ -35,7 +35,7 @@ class PaymentTypeAPI:
             DomainException: For API errors
         """
         response = await self.http.get("/payment-type/table")
-        return response.json()
+        return response.json()  # type: ignore[no-any-return]
 
     async def favorite(self) -> dict[str, Any] | None:
         """

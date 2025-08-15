@@ -99,7 +99,7 @@ class IncomeServiceItem(BaseModel):
         """Calculate total amount (amount * quantity)."""
         return self.amount * self.quantity
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Custom serialization to match PHP jsonSerialize format."""
         return {
             "name": self.name,
@@ -123,7 +123,7 @@ class IncomeClient(BaseModel):
 
     @field_validator("inn")
     @classmethod
-    def validate_inn(cls, v: str | None, info) -> str | None:
+    def validate_inn(cls, v: str | None, info: Any) -> str | None:
         """Validate INN format for legal entities."""
         if v is None:
             return v
@@ -145,7 +145,7 @@ class IncomeClient(BaseModel):
 
     @field_validator("display_name")
     @classmethod
-    def validate_display_name_for_legal_entity(cls, v: str | None, info) -> str | None:
+    def validate_display_name_for_legal_entity(cls, v: str | None, info: Any) -> str | None:
         """Validate display name is provided for legal entities."""
         # Note: This validation is applied in the API layer in PHP,
         # but we can do basic validation here
@@ -155,7 +155,7 @@ class IncomeClient(BaseModel):
                 return None
         return v
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Custom serialization to match PHP jsonSerialize format."""
         return {
             "contactPhone": self.contact_phone,
@@ -187,7 +187,7 @@ class IncomeRequest(BaseModel):
             raise ValueError("Services cannot be empty")
         return v
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Custom serialization to match PHP request format."""
         return {
             "operationTime": self.operation_time.serialize_datetime(
@@ -224,7 +224,7 @@ class CancelRequest(BaseModel):
             raise ValueError("Receipt UUID cannot be empty")
         return v.strip()
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Custom serialization to match PHP request format."""
         return {
             "operationTime": self.operation_time.serialize_datetime(

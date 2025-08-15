@@ -33,7 +33,7 @@ class InvoiceServiceItem(BaseModel):
         """Calculate total amount (amount * quantity)."""
         return self.amount * self.quantity
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Custom serialization to match API format."""
         return {
             "name": self.name,
@@ -58,7 +58,7 @@ class InvoiceClient(BaseModel):
     )
     inn: str | None = Field(None, description="Client INN")
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Custom serialization to match API format."""
         return {
             "contactPhone": self.contact_phone,

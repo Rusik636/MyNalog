@@ -33,7 +33,7 @@ class DeviceInfo(BaseModel):
     )
     user_agent: str = Field(default=USER_AGENT, description="User agent string")
 
-    def model_dump(self, **kwargs) -> dict[str, Any]:
+    def model_dump(self, **kwargs: Any) -> dict[str, Any]:
         """Custom serialization to match PHP jsonSerialize format."""
         return {
             "sourceType": self.source_type,

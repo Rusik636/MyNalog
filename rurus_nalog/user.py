@@ -37,4 +37,4 @@ class UserAPI:
             DomainException: For API errors
         """
         response = await self.http.get("/user")
-        return response.json()
+        return response.json()  # type: ignore[no-any-return]

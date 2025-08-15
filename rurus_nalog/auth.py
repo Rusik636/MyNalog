@@ -170,7 +170,7 @@ class AuthProviderImpl(AuthProvider):
             )
 
             raise_for_status(response)
-            return response.json()
+            return response.json()  # type: ignore[no-any-return]
 
     async def create_new_access_token_by_phone(
         self, phone: str, challenge_token: str, verification_code: str

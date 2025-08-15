@@ -90,7 +90,7 @@ class AsyncHTTPClient:
         path: str,
         headers: dict[str, str] | None = None,
         json_data: dict[str, Any] | None = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> httpx.Response:
         """
         Make HTTP request with automatic auth and 401 retry logic.
@@ -148,7 +148,7 @@ class AsyncHTTPClient:
         self,
         path: str,
         headers: dict[str, str] | None = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> httpx.Response:
         """GET request."""
         return await self.request("GET", path, headers=headers, **kwargs)
@@ -158,7 +158,7 @@ class AsyncHTTPClient:
         path: str,
         json_data: dict[str, Any] | None = None,
         headers: dict[str, str] | None = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> httpx.Response:
         """POST request with JSON data."""
         return await self.request(
@@ -170,7 +170,7 @@ class AsyncHTTPClient:
         path: str,
         json_data: dict[str, Any] | None = None,
         headers: dict[str, str] | None = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> httpx.Response:
         """PUT request with JSON data."""
         return await self.request(
@@ -181,7 +181,7 @@ class AsyncHTTPClient:
         self,
         path: str,
         headers: dict[str, str] | None = None,
-        **kwargs,
+        **kwargs: Any,
     ) -> httpx.Response:
         """DELETE request."""
         return await self.request("DELETE", path, headers=headers, **kwargs)
